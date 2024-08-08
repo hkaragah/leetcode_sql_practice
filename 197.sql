@@ -1,4 +1,3 @@
-# Write your MySQL query statement below
 SELECT
     Current.id
 FROM
@@ -6,9 +5,10 @@ FROM
 LEFT JOIN
     Weather AS Previous
     ON Previous.recordDate = (
-        SELECT MAX(recordDate)
+        SELECT recordDate
         FROM Weather
         WHERE recordDate < Current.recordDate
+        AND DATEDIFF(Current.recordDate, recordDate) = 1
         )
 WHERE
     Previous.temperature IS NOT NULL
